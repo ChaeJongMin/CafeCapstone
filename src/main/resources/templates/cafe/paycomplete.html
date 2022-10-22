@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3초 후에 메인 페이지로 이동이 됩니다...</title>
+    <link rel="stylesheet" href="/css/paycomplete.css">    
+   <!--   <meta http-equiv="refresh" content="10; url=./mainpage"> -->
+<script type="text/javascript">
+cnt = 6; // 카운트다운 시간 초단위로 표시
+function Timer() { 
+	setTimeout("locateKap()",10000); 
+	 } 
+	function locateKap(){
+	 location.replace("./mainpage");
+	}
+
+function countdown() {
+ if(cnt == 0){
+        // 시간이 0일경우
+       locateKap();
+ }else {
+       // 시간이 남았을 경우 카운트다운을 지속한다.
+      document.getElementById('showMsg').innerHTML ="<font color='white'; size='7' >" +cnt + "초후에 메인 페이지로 이동이 됩니다..</font>";
+      setTimeout("countdown()",1000);
+	  cnt--;
+ }
+}
+</script>
+
+
+</head>
+
+<body onLoad="Timer();">
+    <div id="pcpage">
+        <!--    스타어스로고-->
+        <div id="starusLogo">
+            <img src="/img/starusLogo.png" id="starusLogo">
+        </div>		
+        <!--    결제완료 및 주문번호 텍스트-->
+        <div id="ordernum">
+
+        </div>
+        <br><br>
+
+        <!--        홈버튼-->
+        <div id="homebuttonpart">
+        	<div id="showMsg">
+           		
+        	</div>
+        	<div id="lodaings">
+           		<img src="/img/icon/loading.gif">
+        	</div>   
+        </div>
+        
+    </div>
+	<script src="/js/paycomplete.js"></script>
+	<script>countdown();</script>
+</body>
+</html>

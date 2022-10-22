@@ -1,0 +1,49 @@
+[{
+        "id": "espresso",
+        "name": "에소프레소",
+        "nameEng": "Espresso",
+        "img": "/img/coffee/espresso_onlyhot.jpg",
+        "price": 3600,
+        "isdrink": true
+    },
+    {
+        "id": "americano",
+        "name": "아메리카노",
+        "nameEng": "Americano",
+        "img": "/img/coffee/cafe_americano.jpg",
+        "price": 4100,
+        "isdrink": true
+    },
+    {
+        "id": "dolceLatte",
+        "name": "돌체라떼",
+        "nameEng": "Dolce Latte",
+        "img": "../img/coffee/ice_dolce_latte.jpg",
+        "price": 5600,
+        "isdrink": true
+    },
+    {
+        "id": "vanillaLatte",
+        "name": "바닐라 라떼",
+        "nameEng": "Vanilla Latte",
+        "img": "../img/coffee/vanilla_latte.jpg",
+        "price": 5100,
+        "isdrink": true
+    },
+    {
+        "id": "caramel",
+        "name": "카라멜 마끼야또",
+        "nameEng": "Caramel Macchiato",
+        "img": "../img/coffee/caramel_macchiato.jpg",
+        "price": 5600,
+        "isdrink": true
+    },
+    {
+        "id": "cafeMocha",
+        "name": "마페 모카",
+        "nameEng": "Cafe Mocha",
+        "img": "../img/coffee/ice_cafe_mocha.jpg",
+        "price": 5100,
+        "isdrink": true
+    }
+]

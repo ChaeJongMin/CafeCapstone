@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+/*    @�솗�씤�슜*/
+/*    border: 1px solid pink;*/
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/*%%%寃곗젣�럹�씠吏� �떆�옉*/
+#paymentpage {
+/*    �솗�씤�슜*/
+/*    border: 1px solid blue;*/
+
+    width: 1400px;
+    height: 1000px;
+    margin: 100px;
+    border: 2px solid #ddd;
+}
+
+#payheader {
+    text-align: center;
+    height: 50px;
+    background-color: black;
+}
+
+#payheader>h1 {
+    color: white;
+}
+/*二쇰Ц*/
+#order {
+    overflow: hidden;
+    margin: 50px 50px 20px 80px;
+}
+
+#order>h1 {
+    float: left;
+}
+#backbutton {
+    float: right;
+    background-color: #888;
+    height: 35px;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+/*二쇰Ц�뀒�씠釉�*/
+.orderthead {
+/*    @�솗�씤�슜*/
+/*    border: 1px solid skyblue;*/
+
+    margin: 40px 80px 10px 80px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #025940;
+}
+
+.othmenu {
+    width: 475px;
+}
+
+.oth {
+    width: 65px;
+}
+
+.orderlist {
+/*    @�솗�씤�슜*/
+/*    border: 1px solid skyblue;*/
+    width: 605px;
+    margin: 20px 80px;
+    height: 270px;
+    border-bottom: 1px solid #aaa;
+}
+
+.orderlist::-webkit-scrollbar {
+    display: none;
+}
+
+.ordertbody {
+/*    @�솗�씤�슜*/
+/*    border: 1px solid skyblue;*/
+    font-weight: bold;
+    font-size: 18px;
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.otft {
+    width: 450px;
+}
+
+.otft>img {
+    vertical-align: middle;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.otft>span {
+    margin-right: 10px;
+}
+
+.ottd {
+    text-align: center;
+    width: 65px;
+}
+
+/*珥앷툑�븸*/
+#pricesum {
+    margin: 0px 80px;
+    font-size: 40px;
+    font-weight: bolder;
+    overflow: hidden;
+    float: right;
+}
+#pricesum>span:first-child {
+    color: #025940;
+    margin-right: 80px;
+}
+
+/*寃곗젣�닔�떒*/
+#cardchoice {
+    margin: 90px 80px;
+}
+
+#paychoice {
+    text-align: center;
+}
+
+#paychoice>button>img {
+    width: 120px;
+}
+
+#paychoice>button {
+    width: 500px;
+    height: 250px;
+    background-color: #025940;
+    color: white;
+    vertical-align: middle;
+    margin: 50px 30px;
+    border-radius: 20px;
+    font-size: 23px;
+}
+
+/*%%%寃곗젣�럹�씠吏� �걹*/

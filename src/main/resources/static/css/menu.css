@@ -1,0 +1,474 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    width: 1200px;
+    height: 2150px;
+    margin: 100px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 1px solid #ddd;
+    
+}
+ul.pro{
+    width: 1000px;
+    height: 1000px;
+    list-style-type: none;
+    padding: 0;
+}
+
+li{
+    display: inline-block;
+    width: 200px;
+    height: 600px;
+    text-align: center;
+    line-height: 100px;
+    margin: 5px;
+    float: left;
+}
+
+/*  åù óÖ◊›  ---------------------------------*/
+.modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        display: none;
+
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+.modal.show {
+        display: block;
+      }
+
+.modal_body {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        width: 200px;
+        height: 200px;
+
+        padding: 40px;
+
+        text-align: center;
+
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+        transform: translateX(-50%) translateY(-50%);
+      }
+
+/* NAVI Î∞  ---------------------------------*/
+.nav{
+    
+}
+
+ .nav td {
+     width: 765px;
+     text-align: center;
+     font-weight: bold;
+     font-family: 'Noto Sans KR', sans-serif;
+ }
+
+ #nav_main {
+     background-color: black;
+     color: white;
+     height: 60px;
+     font-family: 'Santana';
+     font-size: 30px;
+
+ }
+
+ #nav_category_bev {
+     border-bottom: 1px solid #999;
+     height: 50px;
+ }
+
+ #nav_category_bev.underline_a {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+
+ #nav_user {
+     border-bottom: 1px solid #999;
+     height: 50px;
+ }
+
+ #nav_user.underline_b {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+ 
+ #nav_coffee {
+     height: 50px;
+ }
+
+ /*◊∫àÏö∞ ä§ ò§Î≤ÑÏó∞Ï¥àÎ°ù*/
+ td.over1 {
+     background-color: #027353;
+     color: white;
+ }
+
+ /*◊∫àÏö∞ ä§ ò§Î≤ÑÏ∞êÏ¥àÎ°ù*/
+ td.over2 {
+     background-color: #025940;
+     color: white;
+ }
+
+ /*◊∫àÏö∞ ä§ ò§Î≤ÑÍ∞à Éâ*/
+ td.over3 {
+     background-color: #73534C;
+     color: white;
+ }
+
+ /*◊∫àÏö∞ ä§ ò§Î≤ÑÌå• Éâ*/
+ td.over4 {
+     background-color: #BF988F;
+     color: white;
+ }
+
+ #nav_detail_bev {
+     height: 50px;
+     display: none;
+ }
+
+ #nav_detail_user {
+     height: 50px;
+     display: none;
+ }
+
+ #nav_coffee.underline1 {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+
+ #nav_tea.underline2 {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+
+ #nav_juice.underline3 {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+
+ #nav_cake.underline4 {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+#nav_frappuccino.underline5 {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+#nav_beforebuy.underline6 {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+#nav_recommend.underline7 {
+     border-bottom: 3px solid black;
+     font-size: 25px;
+ }
+/*  ÉÅ Ñ∏ ◊ºîÎâ¥ -------------------------------------------*/
+
+
+
+/* ◊ºîÎâ¥ -------------------------------------------*/
+
+img:hover {
+    opacity: 0.4;
+}
+
+div.COFFEE {
+    padding: 60px 20px;
+    width: 80%;
+    height: 2000px;
+    /*  ôï ù∏ ö© */
+    /*border: 1px solid #aaa;*/
+    float: left;
+    display: inline-block;
+ 
+}
+
+div.TEA {
+    padding: 60px 20px;
+     width: 80%;
+    height: 2000px;
+    /*  ôï ù∏ ö© */
+    /*border: 1px solid #aaa;*/
+    float: left;
+    display: none;
+     
+}
+
+div.JUICE {
+    padding: 60px 20px;
+    width: 80%;
+    height: 2000px;
+    /*  ôï ù∏ ö© */
+    /*border: 1px solid #aaa;*/
+    float: left;
+    display: none;
+   
+}
+div.FRAPPUCCINO {
+    padding: 60px 20px;
+    width: 80%;
+    height: 2000px;
+    /*  ôï ù∏ ö© */
+    /*border: 1px solid #aaa;*/
+    float: left;
+    display: none;
+    
+}
+
+
+div.beforelist {
+    padding: 60px 20px;
+    width: 80%;
+    height: 2000px;
+    /*  ôï ù∏ ö© */
+    /*border: 1px solid #aaa;*/
+    float: left;
+    display: none;
+    
+}
+
+div.recommendlist {
+     padding: 60px 20px;
+    width: 80%;
+    height: 2000px;
+    /*  ôï ù∏ ö© */
+    /*border: 1px solid #aaa;*/
+    float: left;
+    display: none;
+}
+
+
+ .COFFEE a, .TEA a, .JUICE a,.FRAPPUCCINO a, .beforelist a, .recommendlist a {
+    padding: 60px 50px;
+    /*border: 1px solid #aaa;*/
+}
+
+.COFFEE h5, .TEA h5, .JUICE h5, .FRAPPUCCINO h5 , .beforelist h5, .recommendlist h5{
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.COFFEE img, .TEA img, .JUICE img, .FRAPPUCCINO img, .beforelist h5, .recommendlist h5{
+    border-radius: 50px;
+    width: 140px;
+}
+
+/*  û•Î∞îÍµ¨ ãà -----------------------------------------*/
+
+/* û•Î∞îÍµ¨ ãà  †Ñ“˙ */
+.btn-open-popup {
+   width: 230px;
+   height:260px;
+}
+.voice{
+   width: 230px;
+    height: 260px;
+    background-color: #eee;
+    float: right;   
+}
+.cart {
+    width: 20%;
+    height: 50%;
+    background-color: #eee;
+    float: left;
+}
+
+.cartContent {
+    overflow-y: auto;
+    width: 100%;
+    height: 80%;
+    /*background-color: pink;*/
+}
+
+/* û•Î∞îÍµ¨ ãà    ù¥  */
+.title {
+    padding: 20px;
+    text-align: center;
+}
+
+/* ïÑ ù¥ Öú*/
+.cartItem {
+    width: 100%;
+    height: 15%;
+    text-align: center;
+    /*  ôï ù∏ ö© */
+}
+
+.cartItem td, .cartItem tr {
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.cartItem td:first-child {
+    width: 65%;
+}
+
+.cartItem img {
+    width: 15px;
+}
+
+.cartItem div.num1 {
+    text-align: right;
+}
+
+td.t_right {
+    text-align: right;
+    padding-left: 10px;
+    height:100%;
+}
+
+/* àò üâÎ≤ÑÌäº*/
+.plus, .minus {
+    width: 30%;
+}
+.num1 {
+    margin: 0px 9%;
+    line-height: 100%;
+}
+
+.plus, .num1, .minus {
+    float: left;
+}
+
+/* Ï¥ùÏ£ºÎ¨∏Í∏à ï°/Ï¥àÍ∏∞ ôî  †Ñ“˙  */
+.cartFooter {
+    width: 100%;
+    height: 80%;
+    border-top: 5px solid #ddd;
+    background-color: #eee;
+}
+
+/*Ï¥ùÏ£ºÎ¨∏Í∏à ï°*/
+.totalPrice {
+    width: 100%;
+    height: 30%;
+    
+}
+
+.totalPrice td {
+    height:10px;
+    width:100%;
+   
+}
+.totalPrice tr:nth-child(2) {
+    text-align: right;
+}
+
+/* Ñ† Éù Ç≠ †ú Î≤ÑÌäº*/
+#delete {
+    width: 40%;
+    background-color: grey;
+    color: white;
+    position: relative;
+    top: 10px;
+    left: 15px;
+    border-radius: 10px;
+}
+
+#delete:hover {
+    background-color: black;
+}
+
+/* †Ñ“˙¥ÏÇ≠ †ú Î≤ÑÌäº*/
+#reset {
+    width: 100%;
+    background-color: yellow;
+    color: grey;
+    text-align: center;
+    font-size: 16px;
+     padding: 60px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    border-radius: 10px;
+}
+
+#reset:hover {
+    background-color: black;
+}
+
+
+
+/*  ôà/Ï£ºÎ¨∏ Î≤ÑÌäº -------------------------------------*/
+
+.footer {
+    clear: both;
+    height: 90px;
+    padding: 15px 70px;
+    border-top: 3px solid #ddd;
+    font-size: 1.1em;
+    /*  ôï ù∏ ö© */
+    /*background-color: blanchedalmond;*/
+}
+
+.footer button {
+    width: 300px;
+    height: 50px;
+    border-radius: 15px;
+}
+
+#home {
+    background-color: #c22c27;
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+     padding: 60px;
+    position: relative;
+    top: 50px;
+    left: 0px;
+    bottom: 40px;
+    border-radius: 10px;
+}
+
+#home:hover {
+   background-color: white;
+    color: black;
+    font-size: 1.3em;
+    border: 2px solid black;
+}
+
+#order {
+    background-color: #025936;
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+     padding: 60px;
+    position: relative;
+    top: 100px;
+    left: 0px;
+    bottom: 80px;
+    border-radius: 10px;
+}
+
+#order:hover {
+   background-color: white;
+    color: black;
+    font-size: 1.3em;
+    border: 2px solid black;
+}
+input[type=radio]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(5.0); /* IE */
+  -moz-transform: scale(5.0); /* FF */
+  -webkit-transform: scale(5.0); /* Safari and Chrome */
+  -o-transform: scale(5.0); /* Opera */
+  padding: 5px;
+}

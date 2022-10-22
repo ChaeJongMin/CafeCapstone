@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="utf-8">
+    <title>SST 테스트</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css"/>
+    <style tyle="text/css">
+        body{
+            font-family:verdana;
+        }
+        #result{
+            height:200px;
+            border:1px solid #ccc;
+            padding:10px;
+            box-shadow: 0 0 10px 0 #bbb;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 25px;
+        }
+        button{
+            font-size:20px;
+            position: absolute;
+            top:240px;
+            left:50%;
+        }
+    </style>
+       <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
+    <script type="text/javascript" th:inline="javascript">
+    var r=document.getElementById('result');
+    var finalTranscripts = '';
+    $(document).ready(function() {
+    		alert("음성입장");
+            if('webkitSpeechRecognition'in window){         
+                var speechRecognizer = new webkitSpeechRecognition();         
+                speechRecognizer.continuous = true;         
+                speechRecognizer.interimResults = true;         
+                speechRecognizer.lang="ko-KR";         
+                speechRecognizer.start();             
+                speechRecognizer.onresult=function(event){
+                    var interimTranscripts='';
+                    for(var i=event.resultIndex; i < event.results.length; i++)
+                    {
+                        var transcript=event.results[i][0].transcript;
+                        transcript.replace("\n","<br>");                   
+                        //말이 다 끝나면 스프링에 전달 및 종료
+                        if(event.results[i].isFinal){
+                            finalTranscripts+=transcript;
+                            speechRecognizer.stop();
+                            ajax();                        
+                        }
+                        else{
+                            interimTranscripts+=transcript;
+                        }
+                    }               
+                    r.innerHTML=finalTranscripts+'<span style="color:#999">'+interimTranscripts+'</span>';
+                };
+                speechRecognizer.onerror = function(event){
+                };
+            }
+            else{            
+                r.innerHTML ="fail";
+            }
+        });
+        //딕테이션한 문자열을 서버에 전달(ajax 통신)
+    function ajax(){
+    	var msgs = finalTranscripts; //STT
+    	alert(msgs); 
+    	 $.ajax({ 
+    		 url: "get_data",
+    		 type: "POST",                             
+             data: {msgs:msgs},
+             success : function (data) {        
+            	alert(data)
+            	//음성인식 종료(창 닫기)
+            	self.close();       	
+               },
+               error: function() {
+            	   alert("에러 발생");
+               }
+      		 });
+    	}    
+    </script>
+</head>
+    <h4 align="center">SSTS 테스트</h4>
+    <div id="result"> </div>
+    <div><input type="button" value="전달" onClick="ajax();"></div>
+<script type="text/javascript">
+ 
+//insert in html
+
+</script>

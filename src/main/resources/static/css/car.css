@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* width: 75%;
+    height: 50%;
+    margin: 100px; */
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 1px solid #ddd;
+}
+
+/* 
+img:hover {
+    opacity: 0.4;
+} */
+
+div.textcar {
+    padding: 60px 20px;
+    height: 100px;
+    /* �솗�씤�슜 */
+    /*border: 1px solid #aaa;*/
+}
+
+.footer {
+    clear: both;
+    height: 90px;
+    padding: 15px 70px;
+    /* border-top: 3px solid #ddd; */
+    text-align:center;
+}
+
+.footer button {
+    width: 300px;
+    height: 50px;
+    border-radius: 15px;
+}
+
+#yes {
+    background-color: #c22c27;
+    color: white;
+}
+
+#yes:hover {
+   background-color: white;
+    color: black;
+    font-size: 1.3em;
+    border: 2px solid black;
+}
+
+#no {
+    background-color: #025936;
+    color: white;
+}
+
+#no:hover {
+   background-color: white;
+    color: black;
+    font-size: 1.3em;
+    border: 2px solid black;
+}
+
+h1 {
+	text-align:center;
+}

@@ -1,0 +1,98 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style type="text/css">
+a:link, a:visited { 
+	background-color: #FFA500; color: maroon; padding: 50px 30px; 
+	text-align: center; text-decoration: none; display: inline-block; 
+} 
+a:hover, a:active { 
+	background-color: #FF4500; 
+}
+header{
+	width:800px;
+	height:200px;
+	background-image:url('/img/title.JPG');
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	background-size:contain;
+}
+footer{
+	width:800px;
+	height:100px;
+	background-image:url('/img/title.JPG');
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size:cover;
+}
+.tg  {
+border-collapse:collapse;
+border-spacing:0;
+background-image:url('/img/back.png');
+background-size: 750px 700px;
+background-repeat: no-repeat;
+background-position: center center;
+}
+.tg td{
+border-color:#aaa;
+border-style:solid;
+border-width:0px;
+color:black;
+font-family:Arial, sans-serif;
+font-size:14px;
+overflow:hidden;
+padding:10px 5px;
+word-break:normal;
+}
+.tg th{border-color:#aaa;border-style:solid;border-width:1px;color:black;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-y0kz{border-color:inherit;font-size:x-large;text-align:center;vertical-align:top}
+</style>
+    <!--
+    <style>
+    div{
+    	float:left;
+    	padding:10px;
+    	border:2px solid #000;
+    	width:33%;
+    }
+    </style>
+    -->
+</head>
+<body>
+<header>
+</header>
+<!-- 
+<div class="order_page_button">주문</div>
+<div class="before_order_page_button">이전 구매</div>
+<div class="recommand_page_button">추천</div>
+ -->
+ <div>
+ <table class="tg" width="740px" border="3" cellpadding="0" cellspacing="0">
+<thead>
+  <tr height="400px">
+    <th class="tg-4um3" colspan="2" width="690px">설명</th>
+  </tr>
+</thead>
+<tbody>
+  <tr height="200px">
+    <td class="tg-baqh" width="200px">
+    	<!-- 
+    	 <button class="btn btn-danger pull-right" type="button" 
+    	 style="width:300;height:200;align:center;">주문하러 가기</button>-->
+    <a class="btn red" href="cafe/Main">주문하러 가기</a>
+    </td>
+    <td class="tg-baqh" width="200px">
+   		<a class="btn red" href="cafe/Main">이전 구매 내역</a>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+</body>
+</html>

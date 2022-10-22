@@ -1,0 +1,86 @@
+@charset "EUC-KR";
+/* NAVI ë°  ---------------------------------*/
+.nav{
+    
+}
+ .nav td {
+     text-align: center;
+     font-weight: bold;
+     font-family: 'Noto Sans KR', sans-serif;
+ }
+ #nav_main {
+ 	width: 100%;
+     background-color: black;
+     color: white;
+     height: 100px;
+     font-family: 'Santana';
+     font-size: 50px;
+
+ }
+ 
+/* radio */
+fieldset{
+	border:solid 5px;
+	margin: 50px; 
+	padding: 30px;
+}
+input[type=radio]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(5.0); /* IE */
+  -moz-transform: scale(5.0); /* FF */
+  -webkit-transform: scale(5.0); /* Safari and Chrome */
+  -o-transform: scale(5.0); /* Opera */
+  padding: 5px;
+}
+#gender_radio{
+	font-family: 'Santana';
+    font-size: 50px;
+    padding: 60px 20px;
+    text-align: center;
+    vertical-align:3px;
+}
+#age_radio{
+	font-family: 'Santana';
+    font-size: 50px;
+    padding: 60px 20px;
+    text-align: center;
+    vertical-align:3px;
+}
+.footer {
+    clear: both;
+    height: 90px;
+    padding: 15px 70px;
+    /* border-top: 3px solid #ddd; */
+    text-align:center;
+}
+
+.footer button {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}
+#home {
+    background-color: #f7f38a;
+    color: black;
+    font-size:1.5em;
+}
+
+#home:hover {
+   background-color: white;
+    color: black;
+    font-size: 2em;
+    border: 2px solid black;
+}
+#menu {
+    background-color: #235677;
+    color: white;
+    font-size:1.5em;
+}
+
+#menu:hover {
+   background-color: white;
+    color: black;
+    font-size: 2em;
+    border: 2px solid black;
+}

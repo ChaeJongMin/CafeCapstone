@@ -1,0 +1,33 @@
+[{
+        "id": "barbequeCiabatta",
+        "name": "諛붾퉬�걧 移섑궓 移섏븘諛뷀�",
+        "nameEng": "Barbeque Chicken Ciabatta",
+        "img": "../img/sandwich/BarbequeChickenCiabatta.png",
+        "price": 5800,
+        "isdrink": false
+    },
+    {
+        "id": "cranberryChicken",
+        "name": "�겕�옖踰좊━ 移섑궓 �깒�뱶�쐞移�",
+        "nameEng": "Cranberry Chicken Sandwich",
+        "img": "../img/sandwich/CranberryChickenSandwich.png",
+        "price": 4500,
+        "isdrink": false
+    },
+    {
+        "id": "hamRucola",
+        "name": "�뻹 猷④섦�씪 �깒�뱶�쐞移�",
+        "nameEng": "Ham Rucola Sandwich",
+        "img": "../img/sandwich/HamRucolaSandwich.png",
+        "price": 6200,
+        "isdrink": false
+    },
+    {
+        "id": "baconPanini",
+        "name": "踰좎씠而� 泥대떎移섏쫰 �뙆�땲�땲",
+        "nameEng": "Bacon Cheddar Cheese Panini",
+        "img": "../img/sandwich/OnionBaconPanini.png",
+        "price": 6300,
+        "isdrink": false
+    }
+]

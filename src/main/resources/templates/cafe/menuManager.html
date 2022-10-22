@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Manager</title>
+
+    <!--jQuery 라이브러리 로드-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <!--부트스트랩 로드-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <!-- 웹 폰트 로드-->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+    <!--menu.css를 로드-->
+    <link rel="stylesheet" href="/css/menu.css">
+
+    <!--menu.js를 로드 -->
+    <script src="/js/menu.js"></script>
+    
+    <script type="text/javascript" th:inline="javascript">
+    var myBasket = new Array();
+    //var listrow = document.getElementById('listrow');
+    var money =0; 
+   var sum = 0;
+    var r=document.getElementById('result1');
+    var finalTranscripts="";
+    function dataSend(productname, set){
+       var sizePrice;
+       var sizePriceArray;
+       var size;
+       var temp;
+       var pname;
+       
+        var size_n;
+        var temp_n;
+        //일반 메뉴판에서 초이스할 시
+       if(set==1){
+            size_n='size';
+            temp_n='temp';             
+        }
+        //이전 메뉴에서 초이스할 시
+        else if(set==2){
+           size_n='bsize';
+            temp_n='btemp';                        
+        }
+        else {
+           size_n='rsize';
+           temp_n='rtemp';                                  
+        }
+       sizePrice=$(':input:radio[name='+size_n+productname+']:checked').val();
+       
+        sizePriceArray=sizePrice.split(',');             
+        
+      size=sizePriceArray[0];        
+        temp=$(':input:radio[name='+temp_n+productname+']:checked').val(); 
+       
+         pname=productname.concat(',',size,',',temp)    
+           alert(productname+" "+sizePriceArray[1]+" "+sizePriceArray[0]+" "+temp);
+            addProductInfo(productname,sizePriceArray[1],sizePriceArray[0],temp);
+                
+       }    
+    function addCartInfo(){
+          var tbody = '';                                      
+          for (var i = 0; i < myBasket.length; i++) {             
+                tbody += '<tbody>';
+                tbody += '<tr>';
+                tbody += ' <td rowspan="2" style="font-size:16px">' + myBasket[i].name + '</td>';
+                tbody += ' <td class="prices" id="'+i+'" style="font-size:16px">' + myBasket[i].price + '원</td>';
+                tbody += ' </tr>';
+                tbody += ' <tr>';
+                //옵션
+                tbody += ' <td style="font-size:16px">(' + myBasket[i].temp +'/'+myBasket[i].size+')</td>';
+                tbody += '<td class="t_right">';
+                tbody += '<img class="plus" src="/img/icon/plus.png" id="'+i+'" onclick="plusCount(this.id)">';
+                tbody += '<div class="num" id="'+100000+i+'"><font-size:"10">'+myBasket[i].count+'</font-size></div>';
+                tbody += '<img class="minus" src="/img/icon/minus.png" id="'+10000+i+'" onclick="minusCount(this.id)">';
+                tbody += '</td>';
+                tbody += '</tr>';
+                tbody += '</tbody>';
+                document.getElementById('listrow').innerHTML = tbody;
+          }         
+ }                         
+    function addProductInfo(pname, pprice, psize, ptemp){ //장바구니에 아이템 추가 함수
+         // myBasket.push({name:pname, price=pprice});         
+         var info=new Object(); //객체 생성(아이템)
+         var checkResult=checkEqualProduct(pname, psize, ptemp); //장바구니에 넣을 아이템이 중복인지 판별
+      
+         if(checkResult!=-1){  //중복된 아이템일 경우          
+          myBasket[checkResult].count+=1;   //개수 증가    
+          alert("중복아이템");
+         
+           //var originPrice=myBasket[now].price/myBasket[now].count;//기본값 추출
+           //myBasket[now].price=originPrice*myBasket[now].count;//가격 갱신          
+           //var getId=(100000+checkResult).toString();   //해당 num 클래스 요소 가져옴                               
+           var element = document.getElementsByClassName("num")[Number(checkResult)];              
+           element.innerText=myBasket[checkResult].count; 
+           var priceElement = document.getElementsByClassName("prices")[Number(checkResult)];              
+         priceElement.innerText=(myBasket[checkResult].count*myBasket[checkResult].price)+"원";         
+        
+         }
+         else{
+            //새로운 아이템이므로 객체에 속성 추가
+            info.name=pname;
+               info.price=pprice;
+               info.size=psize;
+               info.temp=ptemp;
+               info.count=1;                
+               myBasket.push(info); //장바구니 배열에 객체 푸쉬
+               addCartInfo();
+                
+         }
+            calcPrice();
+    }   
+   function checkEqualProduct(pname, psize, ptemp){ //중복 아이템(온도, 사이즈 포함) 판별 함수
+      for (var i = 0; i < myBasket.length; i++) {
+         if(pname==myBasket[i].name && psize==myBasket[i].size && ptemp==myBasket[i].temp){
+            //장바구니 배열에 이미 중복된 배열이 있을 시
+            return i; //해당 인덱스 반환
+         }               
+      }
+      return -1;   
+   }    
+    function calcPrice(){ //총 가격 계산 함수
+       sum=0;
+       for (var i = 0; i < myBasket.length; i++) {
+         //alert(myBasket[i].count+" "+myBasket[i].price );
+          money=Number(myBasket[i].count)*Number(myBasket[i].price);
+         
+         sum+=money;                  
+      }       
+       document.getElementById("text3").innerHTML=sum+'원';       
+    }   
+    //'+' 버튼 클릭 시
+    function plusCount(indexs) {
+        var now = Number(indexs);//해당 아이템 인덱스
+        var originPrice=myBasket[now].price/myBasket[now].count;//기본값 추출   
+        myBasket[now].count+=1;//개수 증가    
+        //myBasket[now].price=originPrice*myBasket[now].count;//가격 갱신
+        
+      //갱신된 값 웹에 출력
+        var priceElement = document.getElementsByClassName("prices")[Number(now)];              
+        priceElement.innerText=(myBasket[now].price*myBasket[now].count)+"원";
+        
+       var countElement = document.getElementsByClassName("num")[Number(now)];              
+       countElement.innerText=myBasket[now].count;
+      calcPrice();     
+    }
+    // '-' 버튼 클릭 시
+    function minusCount(indexs) {
+    
+       var now = Number(indexs)-100000; //해당 아이템 인덱스       
+       //var originPrice=myBasket[now].price/myBasket[now].count; //기본값 추출       
+       myBasket[now].count-=1; //개수 감소
+     
+       //myBasket[now].price-=originPrice; //가격 갱신
+      
+       if(myBasket[now].count==0){ //만약 수량이 0이면?
+          myBasket[now].count=1; //수량 1로 고정
+          //myBasket[now].price=originPrice; //가격도 기본 가격
+          
+       }
+  
+       //갱신된 값 웹에 출력
+       var priceElement = document.getElementsByClassName("prices")[Number(now)];  
+       priceElement.innerText=(myBasket[now].price*myBasket[now].count)+"원";    
+       var countElement = document.getElementsByClassName("num")[Number(now)];         
+      countElement.innerText=myBasket[now].count;      
+      calcPrice();
+    }
+   
+   function startVoice() {          
+    
+            if('webkitSpeechRecognition'in window){               
+                var speechRecognizer = new webkitSpeechRecognition();         
+                speechRecognizer.continuous = true;         
+                speechRecognizer.interimResults = true;         
+                speechRecognizer.lang="ko-KR";                         
+                speechRecognizer.start();                             
+                speechRecognizer.onresult=function(event){
+                   
+                   var interimTranscripts='';
+                    for(var i=event.resultIndex; i < event.results.length; i++)
+                    {
+                        var transcript=event.results[i][0].transcript;
+                        transcript.replace("\n","<br>");                   
+                        //말이 다 끝나면 스프링에 전달 및 종료
+                        if(event.results[i].isFinal){
+                           
+                           alert(transcript);
+                           finalTranscripts+=transcript;                                                       
+                           speechRecognizer.stop();
+                           
+                            ajax();
+                       
+                        }
+                        else{
+                            interimTranscripts+=transcript;
+                  
+                        }
+                    }  
+                    transcript="";
+           
+                    interimTranscripts="";
+                    //r.innerHTML=finalTranscripts+'<span style="color:#999">'+interimTranscripts+'</span>';
+                };                
+                speechRecognizer.onerror = function(event){
+                   alert("음성 인식 실패");
+                };
+            }   
+            else{            
+                alert("음성 인식 실패");
+            }
+        }
+   function loadDetailPage(productName){
+            
+      var catename=document.getElementById('id0'+productName+'1').value;
+      document.getElementById("nav_"+catename.toLowerCase() ).click();
+      document.getElementById('id0'+productName).style.display='block';
+       
+   }
+   function resetItem(){    
+      document.getElementById("text3").innerHTML='0원';
+      myBasket = new Array();
+      var e=document.getElementById("listrow");
+                 
+      while ( e.hasChildNodes() ) { 
+         e.removeChild(e.firstChild ); 
+      }
+
+    
+   }
+   function SaveItemAndOrder(){
+      //var jsonData = JSON.stringify(myBasket);
+      
+       $.ajax({ type: "post",                   
+              url: "menuManager", 
+              traditional :true,
+              data  : { jsonData : JSON.stringify(myBasket)},
+              dataType : "text",                 
+              success : function(data) {   
+                 location.href="./pay"        
+              },
+              error : function(request,status,error){
+               alert(error);
+              }
+        });       
+   }
+   
+    
+  
+   function paddedFormat(num) {
+	    return num < 10 ? "0" + num : num; 
+	}
+
+	function startCountDown(firstduration,duration, element) {
+		
+		
+		var body = document.body
+		var secondsRemaining=duration;
+		body .addEventListener('mousemove',e=>{
+		            secondsRemaining = firstduration;       
+		        });
+	    
+
+	    let min = 0;
+	    let sec = 0;
+
+	    let countInterval = setInterval(function () {
+
+	        min = parseInt(secondsRemaining / 60);
+	        sec = parseInt(secondsRemaining % 60);
+
+	        element.textContent = `${paddedFormat(min)}:${paddedFormat(sec)}`;
+
+	        secondsRemaining = secondsRemaining - 1;
+	        if (secondsRemaining < 0) { location.replace('/cafe/logout'); };
+
+	    }, 1000);
+	}
+
+	window.onload = function () {
+	    let time_minutes = 0; // Value in minutes
+	    let time_seconds = 30; // Value in seconds
+
+	    let duration = time_minutes * 60 + time_seconds;
+	    let firstduration =duration
+	    element = document.querySelector('#count-down-timer');
+	    element.textContent = `${paddedFormat(time_minutes)}:${paddedFormat(time_seconds)}`;
+
+	    startCountDown(firstduration,--duration, element);
+	    
+	};
+   
+    </script>
+    
+</head>
+
+<body>
+<h1 class="text-center"  style="color:red" id="count-down-timer"></h1>
+   <!-- NAVI 바 ---------------->
+ 
+     <table class="nav">
+        <tr>
+           
+           <td ><a  th:text="${user.userId}" ></a></td>
+            <td colspan="4" id="nav_main">STARUS</td>
+            
+        </tr>
+        <tr id="nav_sub">
+            <td colspan="" id="nav_category_bev">음료(Beverage)</td>
+            <td colspan="" id="nav_user">이전 구매 및 추천</td>       
+        </tr>
+        <tr id="nav_detail_bev">
+            <td id="nav_coffee">COFFEE</td>
+            <td id="nav_tea">TEA</td>
+            <td id="nav_juice">JUICE</td>
+            <td id="nav_frappuccino">FRAPPUCCINO</td>
+        </tr>       
+        <tr id="nav_detail_user">
+           <td th:if="!${user.userId.toString().equals('비회원')}" id="nav_beforebuy">BEFORE</td>
+           <td id="nav_recommend">RECOMMEND</td>
+        </tr>
+    </table>        
+    <!-- 메뉴 -------------------->
+     <div class="voice">
+         <button class="btn-open-popup">음성</button>
+      </div>
+    <div class="menu">
+       
+        <th:block th:each="cateList: ${cateList}"> 
+        <div th:class="${cateList.categoryName}">       
+           <ul class="pro" th:id="${cateList.categoryName.toString()=='COFFEE'? 'listtable' : ''}">              
+                <!-- <tbody th:id="${cateList.categoryName.toString()=='COFFEE'? 'listtable' : ''}"> -->                              
+                    <th:block th:each="proList, num:${cateList.getProductList()}">                                                                                   
+                        <li>  
+                        &nbsp;&nbsp;&nbsp;                         
+                            <a th:onclick="document.getElementById([['id0'+${proList.getProductName()}]]).style.display='block'" >
+                            <img th:src="'/img/Menu/'+${proList.getProductName()}+'.png'" id=1 style="cursor:pointer; width: 100%; height: 400px" ></a><br>
+                            <h1 th:text="${proList.getProductName()}"></h1>   
+                             <!-- 상세 메뉴 화면 열기 -------------------->  
+                                 <div th:id="'id0'+${proList.getProductName()}" class="w3-modal w3-animate-opacity">
+                                 <input type="hidden" th:value="${cateList.categoryName}" th:id="'id0'+${proList.getProductName()}+'1'">
+                                 
+                               <div class="w3-modal-content w3-card-4">
+                              <header class="w3-container w3-teal"> 
+                                <span th:onclick="document.getElementById([['id0'+${proList.getProductName()}]]).style.display='none'" 
+                                   class="w3-button w3-large w3-display-topright">&times;</span>
+                                <h2 th:text="${proList.getProductName()}+' 담기'" style="width:300px; height:100px" ></h2>
+                              </header>
+                              <div class="w3-container">
+                              <p style="text-align: center;">
+                              
+                              <img style="width:400px; height:400px;" class="card-img-top" th:src="'/img/Menu/'+${proList.getProductName()}+'.png'" alt="..." />
+                              </p>   
+                                  <form>                                                                     
+                                   <p>                                                                                 
+                                         <div>
+                                         <input type="radio"  th:name="'size'+${proList.getProductName()}" th:value="'Tall,'+${(proList.getSizemap())[0]}" th:id="'Tall,'+${(proList.getSizemap())[0]}" checked > 
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label th:if="${proList.getSize().contains(0)}" th:text="'Tall '+${(proList.getSizemap())[0]}+'원'" th:for="'Tall,'+${(proList.getSizemap())[0]}"></label>
+                                         </div>
+                                         <div>
+                                         <input type="radio"  th:name="'size'+${proList.getProductName()}" th:value="'Grande,'+${(proList.getSizemap())[1]}" th:id="'Grande,'+${(proList.getSizemap())[1]}"> </label>
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label th:if="${proList.getSize().contains(1)}" th:text="'Grande '+${(proList.getSizemap())[1]} +'원'" th:for="'Grande,'+${(proList.getSizemap())[1]}" > </label>
+                                         </div>
+                                         <div>
+                                         <input type="radio"  th:name="'size'+${proList.getProductName()}" th:value="'Venti,'+${(proList.getSizemap())[2]}" th:id="'Venti,'+${(proList.getSizemap())[2]}">
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label th:if="${proList.getSize().contains(2)}" th:text="'Venti '+${(proList.getSizemap())[2]} + '원'" th:for="'Venti,'+${(proList.getSizemap())[2]}"> </label>
+                                         </div>
+                                    
+                                    <hr>
+                                    <p>                                       
+                                         <input type="radio" th:if="${proList.getTemp().contains(0)}" th:name="'temp'+${proList.getProductName()}" th:value="'Hot'" th:id="'Hot'">  
+                                         <label th:if="${proList.getTemp().contains(0)}" th:for="'Hot'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Hot 
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                         <input type="radio" th:if="${proList.getTemp().contains(1)}" th:name="'temp'+${proList.getProductName()}" th:value="'Ice'" th:id="'Ice'" checked>  
+                                         <label th:if="${proList.getTemp().contains(1)}" th:for="'Ice'"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ice
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    </p>       
+                                     </form>
+                                     
+                              </div>
+                                 <footer class="w3-container w3-teal">
+                                
+                                
+                                <div class="text-center"><input type="button" value="담기" style="width:300px; height:100px" th:onclick="
+                                 dataSend([[${proList.getProductName()}]],'1')
+                                document.getElementById([['id0'+${proList.getProductName()}]]).style.display='none';"></div>                               
+                                 
+                                 </footer>
+                              </div>
+                                 
+                              </div>           
+                               <!-- 상세 메뉴 화면 열기 -------------------->   
+
+                    </li>                                    
+                     </th:block>               
+
+            </ul>
+        </div>
+        </th:block>
+            <div class="beforelist">
+            <ul class="pro">
+            <th:block th:if="!${user.userId.toString().equals('비회원')}" th:each="befores:${beforeProd}">
+                     <li>                  
+                       &nbsp;&nbsp;&nbsp;  
+                        <a th:onclick="document.getElementById([['id1'+${befores.getProductName()}]]).style.display='block'">
+                           <img th:src="'/img/Menu/'+${befores.getProductName()}+'.png'"
+                           id=1 style="cursor: pointer; width: 100%; height: 400px">
+                        </a><br>
+                        <h5 th:text="${befores.getProductName()}"></h5>
+                        <!-- 상세 메뉴 화면 열기 -------------------->
+                        <div th:id="'id1'+${befores.getProductName()}"
+                           class="w3-modal w3-animate-opacity">
+                           <input type="hidden" value="BEFORE"
+                              th:id="'id1'+${befores.getProductName()}+'1'">
+
+                           <div class="w3-modal-content w3-card-4">
+                              <header class="w3-container w3-teal">
+                                 <span
+                                 
+                                    th:onclick="document.getElementById([['id1'+${befores.getProductName()}]]).style.display='none'"
+                                    class="w3-button w3-large w3-display-topright">&times;</span>
+                                 <h2 th:text="${befores.getProductName()}+' 담기'" style="width:300px; height:100px"></h2>
+                              </header>
+
+                              <div class="w3-container">
+                                 <p style="text-align: center;">
+
+                                    <img style="width: 400px; height: 400px;"
+                                       class="card-img-top"
+                                       th:src="'/img/Menu/'+${befores.getProductName()}+'.png'"
+                                       alt="..." />
+                                 </p>
+                                 <form>
+                                    <p>
+                                    <div>
+                                    <input
+                                          type="radio" th:name="'bsize'+${befores.getProductName()}"
+                                          th:value="'Tall,'+${(befores.getSizemap())[0]}" 
+                                          th:id="'Tall,'+${(befores.getSizemap())[0]}"  checked>
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <label th:if="${befores.getSize().contains(0)}" th:text="'Tall '+${(befores.getSizemap())[0]}+'원'" 
+                                       th:for="'Tall '+${(befores.getSizemap())[0]}+'원'"></label>
+                                    </div>
+                                    <div>
+                                       <input
+                                          type="radio" th:name="'bsize'+${befores.getProductName()}"
+                                          th:value="'Grande,'+${(befores.getSizemap())[1]}"
+                                          th:id="'Grande '+${(befores.getSizemap())[1]} +'원'">
+                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <label th:if="${befores.getSize().contains(1)}" th:text="'Grande '+${(befores.getSizemap())[1]} +'원'"
+                                       th:id="'Grande '+${(befores.getSizemap())[1]} +'원'">
+                                       </label>
+                                    </div>
+                                    <div>
+                                       <input
+                                          type="radio" th:name="'bsize'+${befores.getProductName()}"
+                                          th:value="'Venti,'+${(befores.getSizemap())[2]}"
+                                          th:id="'Venti '+${(befores.getSizemap())[2]} + '원'">
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <label th:if="${befores.getSize().contains(2)}"
+                                       th:text="'Venti '+${(befores.getSizemap())[2]} + '원'"
+                                       th:for="'Venti '+${(befores.getSizemap())[2]} + '원'"
+                                       >
+                                       </label>
+                                    </div>
+                                    </p>
+                                    <hr>
+                                    <p>
+                                       <input type="radio" th:if="${befores.getTemp().contains(0)}" th:name="'btemp'+${befores.getProductName()}" th:value="'Hot'" th:id="'Hot'"> 
+                                       <label th:if="${befores.getTemp().contains(0)}" th:for="'Hot'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hot 
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <input type="radio" th:if="${befores.getTemp().contains(1)}" th:name="'btemp'+${befores.getProductName()}" th:value="'Ice'" th:id="'Ice'" checked>
+                                       <label th:if="${befores.getTemp().contains(1)}" th:for="'Ice'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Ice 
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    </p>
+                                 </form>
+
+                              </div>
+                              <footer class="w3-container w3-teal">
+                                 <p>
+                                 <div class="text-center">
+                                    <input type="button" value="담기" style="width:300px; height:100px" 
+                                       th:onclick="dataSend([[${befores.getProductName()}]],'2')
+                                document.getElementById([['id1'+${befores.getProductName()}]]).style.display='none';">
+                                 </div>
+                                
+                              </footer>
+                           </div>
+                        </div>
+                       
+         </li>
+         </th:block>
+         
+         
+            </ul>
+            </div>
+        
+         <div class="recommendlist">
+            <ul class="pro">
+            <th:block th:each="befores:${recoProd} ">
+               <li>
+                     <div>
+                        <a href=#
+                           th:onclick="document.getElementById([['id2'+${befores.getProductName()}]]).style.display='block'">
+                           <img th:src="'/img/Menu/'+${befores.getProductName()}+'.png'"
+                           id=1 style="cursor: pointer; width: 100%; height: 400px">
+                        </a><br>
+                        <h5 th:text="${befores.getProductName()}"></h5>
+                        <!-- 상세 메뉴 화면 열기 -------------------->
+                        <div th:id="'id2'+${befores.getProductName()}"
+                           class="w3-modal w3-animate-opacity">
+                           <input type="hidden" value="BEFORE"
+                              th:id="'id2'+${befores.getProductName()}+'1'">
+
+                           <div class="w3-modal-content w3-card-4">
+                              <header class="w3-container w3-teal">
+                                 <span
+                                    th:onclick="document.getElementById([['id2'+${befores.getProductName()}]]).style.display='none'"
+                                    class="w3-button w3-large w3-display-topright">&times;</span>
+                                 <h2 th:text="${befores.getProductName()}+' 담기'" style="width:300px; height:100px"></h2>
+                              </header>
+
+                              <div class="w3-container">
+                                 <p style="text-align: center;">
+
+                                    <img style="width: 400px; height: 400px;"
+                                       class="card-img-top"
+                                       th:src="'/img/Menu/'+${befores.getProductName()}+'.png'"
+                                       alt="..." />
+                                 </p>
+                                 <form>
+                                    <p>
+                                    <div>
+                                       <input
+                                          type="radio" th:name="'rsize'+${befores.getProductName()}"
+                                          th:value="'Tall,'+${(befores.getSizemap())[0]}"
+                                          th:id="'Tall '+${(befores.getSizemap())[0]}+'원'" checked>
+                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <label th:if="${befores.getSize().contains(0)}"
+                                        th:text="'Tall '+${(befores.getSizemap())[0]}+'원'"
+                                         th:for="'Tall '+${(befores.getSizemap())[0]}+'원'">
+                                       </label>
+                                    </div>
+                                    <div>
+                                       <input
+                                          type="radio" th:name="'rsize'+${befores.getProductName()}"
+                                          th:value="'Grande,'+${(befores.getSizemap())[1]}"
+                                          th:id="'Grande '+${(befores.getSizemap())[1]} +'원'">
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <label th:if="${befores.getSize().contains(1)}"
+                                       th:text="'Grande '+${(befores.getSizemap())[1]} +'원'"
+                                       th:for="'Grande '+${(befores.getSizemap())[1]} +'원'">
+                                       </label>
+                                    </div>
+                                    <div>
+                                       <input
+                                          type="radio" th:name="'rsize'+${befores.getProductName()}"
+                                          th:value="'Venti,'+${(befores.getSizemap())[2]}"
+                                          th:id="'Venti '+${(befores.getSizemap())[2]} + '원'">
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <label th:if="${befores.getSize().contains(2)}"
+                                       th:text="'Venti '+${(befores.getSizemap())[2]} + '원'"
+                                       th:for="'Venti '+${(befores.getSizemap())[2]} + '원'">
+                                       </label>
+                                    </div>
+                                    
+                                    <hr>
+                                    <p>
+                                       <input type="radio" th:if="${befores.getTemp().contains(0)}" th:name="'rtemp'+${befores.getProductName()}" th:value="'Hot'" th:id="'Hot'">
+                                       <label th:if="${befores.getTemp().contains(0)}" th:for="'Hot'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Hot 
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                                       <input type="radio" th:if="${befores.getTemp().contains(1)}" th:name="'rtemp'+${befores.getProductName()}" th:value="'Ice'" th:id="'Ice'" checked>
+                                       <label th:if="${befores.getTemp().contains(1)}" th:for="'Ice'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Ice 
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    </p>
+                                 </form>
+
+                              </div>
+                              <footer class="w3-container w3-teal">
+                                 <p>
+                                 <div class="text-center">
+                                    <input type="button" value="담기" style="width:300px; height:100px" 
+                                       th:onclick="dataSend([[${befores.getProductName()}]],'3')
+                                document.getElementById([['id2'+${befores.getProductName()}]]).style.display='none';">
+                                 </div>
+                                 </p>
+                              </footer>
+                           </div>
+                        </div>
+                        </div>
+                <li>
+         </th:block>
+            
+            </ul>
+            </div>
+        
+        
+        
+        
+        
+        </div>
+
+      
+      <div class="cart">
+
+        <!--장바구니 내용-->
+        <div class="cartContent">
+
+            <!--장바구니 타이틀-->
+            <div class="title">
+                <h4 style="color:#025936"><img src="/img/icon/cartIcon_black.png" width=35px> 장바구니</h4>
+            </div>
+
+            <!--장바구니 아이템-->
+            <table class="cartItem">
+                <tbody id="listrow">
+                    <tr>
+                        <td id="names"></td>
+                        <td id="prices"></td>
+                    </tr>
+                    <tr>
+                        <td id="option"></td>
+                        <td id="num"><img><img></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--총주문금액/초기화-->
+        <div class="cartFooter">
+
+            <!--총 주문 금액-->
+            <table class="totalPrice">
+                <tr>
+                    <td>
+                        <h3>총 주문 금액 :</h3>
+                    </td>
+                </tr>
+                  
+                <tr>
+                    <td colspan="2">
+                        <h4 id="text3" style="color:#025936"></h4>
+                    </td>
+                </tr>
+                
+            </table>
+
+            <!--전체삭제 버튼-->
+            <button id="reset" th:onclick="resetItem();">전체 삭제</button>
+         <button id="home" onclick="location.href='/cafe/logout'">HOME</button>
+            <button id="order" onclick="SaveItemAndOrder()">ORDER</button>
+        </div>
+
+    </div>
+
+
+
+ 
+    <!-- 홈/주문 버튼 ------------->
+    <div class="footer">
+      
+    </div>
+    <!-- 장바구니 ----------------->     
+        <div class="modal">
+      <div class="modal_body">원하는 메뉴를 말해주세요.</div>
+      <div id="result1"> </div>     
+    </div>
+    <script type="text/javascript" th:inline="javascript">
+    const body = document.querySelector('body');
+    const modal = document.querySelector('.modal');
+    const btnOpenPopup = document.querySelector('.btn-open-popup');
+   
+        //딕테이션한 문자열을 서버에 전달(ajax 통신)
+    function ajax(){
+       //var msgs = finalTranscripts; //STT
+        
+        var msgs= finalTranscripts.replace(/\s+/g, ''); 
+        finalTranscripts="";
+        alert("msgs");
+        
+        /*$.ajax({ 
+           url: "get_data",
+           type: "POST",                             
+             data: {msgs:msgs},
+             success : function (data) {                       
+               //음성인식 종료(창 닫기)
+               self.close();          
+               },
+               error: function() {
+                  alert("에러 발생");
+               }
+             });
+        */
+        modal.click();        
+       loadDetailPage(msgs);
+       
+       }
+        
+    btnOpenPopup.addEventListener('click', () => {
+      modal.classList.toggle('show');
+     
+      if (modal.classList.contains('show')) {
+        body.style.overflow = 'hidden';
+      }
+      
+      startVoice();
+      
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.classList.toggle('show');
+
+        if (!modal.classList.contains('show')) {
+          body.style.overflow = 'auto';
+        }
+      }
+    });
+    
+
+ 
+    </script>    
+    
+</body>
+
+</html>
