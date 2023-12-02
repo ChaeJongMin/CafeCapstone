@@ -24,7 +24,7 @@
 6. **프론트엔드** : Chrome Speech API
 7. **모션 인식** : MediaPipe Hands
 8. **OS** : Windows10
-9. **기타** : Intellij
+9. **기타** : Intellij , Ngrok
 
 ## 사용된 하드웨어 
  1. 2개 카메라 (차량 전면 , 차량 왼쪽 )
